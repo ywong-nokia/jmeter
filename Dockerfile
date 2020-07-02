@@ -1,20 +1,24 @@
 # inspired by https://github.com/hauptmedia/docker-jmeter  and
 # https://github.com/hhcordero/docker-jmeter-server/blob/master/Dockerfile and
 # https://github.com/justb4/docker-jmeter
-
-FROM alpine:3
+FROM alpine:3.10
 
 ARG JMETER_VERSION="5.3"
-
 ENV JMETER_HOME /opt/apache-jmeter-${JMETER_VERSION}
 ENV	JMETER_BIN	${JMETER_HOME}/bin
 ENV	JMETER_DOWNLOAD_URL  https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-${JMETER_VERSION}.tgz
 
 # Install extra packages
-RUN 	apk add --update --no-cache ca-certificates \
+# See https://github.com/gliderlabs/docker-alpine/issues/136#issuecomment-272703023
+# Change TimeZone TODO: TZ still is not set!
+ARG TZ="Europe/Amsterdam"
+RUN    apk update \
+	&& apk upgrade \
+	&& apk add ca-certificates \
 	&& update-ca-certificates \
-	&& apk add --no-cache openjdk8-jre tzdata curl bash \
+	&& apk add --update openjdk8-jre tzdata curl unzip bash \
 	&& apk add --no-cache nss \
+	&& rm -rf /var/cache/apk/* \
 	&& mkdir -p /tmp/dependencies  \
 	&& curl -L --silent ${JMETER_DOWNLOAD_URL} >  /tmp/dependencies/apache-jmeter-${JMETER_VERSION}.tgz  \
 	&& mkdir -p /opt  \
