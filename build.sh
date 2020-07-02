@@ -14,14 +14,14 @@ build() {
   echo docker build --no-cache --build-arg JMETER_VERSION=${tag} -t ${image}:${tag} .
   docker build --no-cache --build-arg JMETER_VERSION=${tag} -t ${image}:${tag} .
 
-  # run test
-  version=$(docker run -ti --rm ${image}:${tag} --version|grep ${tag}|awk '{print $NF}')
-  if [ "${version}" == "${tag}" ]; then
-    echo "matched"
-  else
-    echo "unmatched"
-    exit
-  fi
+  # # run test
+  # version=$(docker run -ti --rm ${image}:${tag} --version|grep ${tag}|awk '{print $NF}')
+  # if [ "${version}" == "${tag}" ]; then
+  #   echo "matched"
+  # else
+  #   echo "unmatched"
+  #   exit
+  # fi
 
   if [[ "$TRAVIS_BRANCH" == "master" && "$TRAVIS_PULL_REQUEST" == false ]]; then
     docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
