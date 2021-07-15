@@ -1,3 +1,5 @@
+# After Travis CI adjusts their plan, we don't have enough free credit to run the build. So daily build has been adjusted to weekly. If you don't get latest version, please wait for one week.
+
 [![Docker Build](https://img.shields.io/docker/automated/justb4/jmeter.svg)](https://hub.docker.com/r/justb4/jmeter)
 
 
