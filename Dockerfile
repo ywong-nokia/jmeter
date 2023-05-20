@@ -1,7 +1,7 @@
 # inspired by https://github.com/hauptmedia/docker-jmeter  and
 # https://github.com/hhcordero/docker-jmeter-server/blob/master/Dockerfile and
 # https://github.com/justb4/docker-jmeter
-FROM ibm-semeru-runtimes:open-11-jre
+FROM amazoncorretto:11-alpine3.17
 
 ARG JMETER_VERSION="5.5"
 ENV JMETER_HOME /opt/apache-jmeter-${JMETER_VERSION}
